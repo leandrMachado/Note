@@ -1,0 +1,27 @@
+<div class="new_list_body" (click)="createNotes()"> <img src="../assets/newicon.png"> <p>New note</p> </div>
+
+<div class="menu" (click)="openMenu = true"> <img src="../assets/menu.png"></div>
+
+<div class="list_body"  [ngClass]="{ 'list_body_active': openMenu }">
+  <div class="close_menu" (click)="openMenu = false"> <img src="../assets/newicon.png"> </div>
+  <div class="notes">
+    <div class="note" *ngFor="let note of existingNotes">
+      <p (click)="openNoteFromList(note.id)" >{{note.title}}</p>
+      <div class="markdownOptions">
+        <button (click)="openNoteToEdit(note.id)"><img src="../assets/edit.png"></button>
+        <button (click)="deleteNoteFromDatabase(note.id)"><img src="../assets/delete.png"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text_reader" *ngIf="readNote">
+  <markdown [data]="noteSelected.note"></markdown>
+</div>
+
+<div class="text_editor" *ngIf="createNote">
+  <div class="textOptions">
+      <button (click)="onSaveNotes()"><img src="../assets/save.png"></button>
+  </div>
+  <textarea cols="30" rows="10" [formControl]="markdownText" placeholder="Press Enter to continue with an empty note"></textarea>
+</div>
